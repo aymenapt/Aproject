@@ -40,6 +40,13 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150,unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     role = models.CharField(max_length=40)
+    skills=models.CharField(max_length=255, blank=True,null=True)
+    image=models.ImageField(upload_to='uploads/', blank=True, null=True)
+    otp=models.CharField(max_length=40,blank=True)
+    is_verified=models.BooleanField(default=False)
+    is_baned=models.BooleanField(default=False)
+    bancount=models.IntegerField(null=True,blank=True,default=0)
+    baned_time=models.DateTimeField(default=timezone.now)
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
@@ -53,3 +60,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    @property
+    def my_PRF_image(self):
+
+       if self.image :
+          return self.image.url
+       return ''

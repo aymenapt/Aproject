@@ -10,14 +10,30 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ('email', 'username', 'password', 'role')
+        fields = ('email', 'username', 'password', 'role','is_verified','image','skills')
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate(self, attrs):
+        username = attrs.get('username')
+        email=attrs.get('email')
+        if NewUser.objects.filter(email=email).exists():
+            raise serializers.ValidationError('Sorry, the email you entered is already taken.')
+    
+        if NewUser.objects.filter(username=username).exists():
+            raise serializers.ValidationError('Sorry, the username you entered is already taken.')
+        return attrs
+    
+    
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        # as long as the fields are the same, we can just use this
-        instance = self.Meta.model(**validated_data)
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+        user = NewUser.objects.create_user(first_name='',**validated_data)
+        return user
+    
+
+
+
+class VerifyOtpSeriliezer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    otp = serializers.CharField(required=True)
+    class Meta :
+        model=NewUser
+        fields=('email', 'role', 'is_verified', 'skills', 'image', 'otp')

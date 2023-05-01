@@ -5,7 +5,7 @@ from django.db import models
 class Challenges(models.Model):
     name=models.CharField(max_length=255)
     descreption=models.CharField(max_length=255)
-    image=models.ImageField(blank=True)
+    image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     points=models.IntegerField()
     def __str__(self) -> str:
         return self.name
@@ -26,7 +26,7 @@ class Titel(models.Model):
         return self.titel
 
 class Images(models.Model):
-    image=models.ImageField()
+    image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="images")
     
 
