@@ -12,13 +12,13 @@ class CreateTitels(generics.ListCreateAPIView):
 
 class CreateImages(generics.ListCreateAPIView):
      queryset=Paragraph.objects.all()
-     serializer_class= ParagraphSreilalizer     
+     serializer_class= ImagesSreilalizer     
 
 
 
 class CreateParagrahe(generics.ListCreateAPIView):
      queryset=Images.objects.all()
-     serializer_class= ImagesSreilalizer
+     serializer_class= ParagraphSreilalizer
 
 
 class CreateTasks(generics.ListCreateAPIView):

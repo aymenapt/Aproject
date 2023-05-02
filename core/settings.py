@@ -1,5 +1,6 @@
 
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,6 +124,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
@@ -215,3 +222,6 @@ EMAIL_USE_TLS = True   # Set to False if you don't want to use TLS
 EMAIL_HOST_USER = 'aymenababsa1@gmail.com'
 EMAIL_HOST_PASSWORD = 'cmyfkgvmoocvunwc'
 
+
+
+# The directory where Django will collect static files
