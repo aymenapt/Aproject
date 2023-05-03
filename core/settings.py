@@ -127,7 +127,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+   # os.path.join(BASE_DIR, 'static'),
 ]
 
 REST_FRAMEWORK = {
@@ -220,7 +220,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True   # Set to False if you don't want to use TLS
 EMAIL_HOST_USER = 'aymenababsa1@gmail.com'
-EMAIL_HOST_PASSWORD = 'cmyfkgvmoocvunwc'
+EMAIL_HOST_PASSWORD = 'amcwplztlbtkcwxm'
 
 
 

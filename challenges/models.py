@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 class Challenges(models.Model):
@@ -7,6 +7,8 @@ class Challenges(models.Model):
     descreption=models.CharField(max_length=255)
     image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     points=models.IntegerField()
+    start_date=models.DateTimeField(null=True,blank=True)
+    end_date=models.DateTimeField(null=True,blank=True)
     def __str__(self) -> str:
         return self.name
 

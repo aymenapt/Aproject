@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics 
 from.models import Challenges , Images, Paragraph, Task, Titel 
 from.serializers import ChallengesSreilalizer, ImagesSreilalizer, ParagraphSreilalizer ,TaskSreilalizer, TitelSreilalizer
+from rest_framework.views import APIView , Response
 
 # Create your views here.
 class CreateTitels(generics.ListCreateAPIView):
@@ -29,6 +30,33 @@ class CreateTasks(generics.ListCreateAPIView):
 class CreateChallenges(generics.ListCreateAPIView):
      queryset=Challenges.objects.all()
      serializer_class= ChallengesSreilalizer    
+
+class PlanifyChallenge(generics.RetrieveUpdateAPIView):
+     queryset=Challenges.objects.all()
+     serializer_class= ChallengesSreilalizer 
+
+
+"""""
+class PlanifyChallenge(APIView):
+    def put(self, request, pk):
+        challenge = Challenges.objects.get(id=pk)
+        serializer = PlanifyChallengeSerializer(challenge, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'status': 200,
+                'message': 'Challenge start and end dates updated successfully',
+                'data': serializer.data
+            })
+        return Response({
+            'status': 400,
+            'message': 'Invalid input',
+            'data': serializer.errors
+        })
+          
+"""""
+     
+      
 
 
 

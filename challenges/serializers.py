@@ -31,4 +31,8 @@ class ChallengesSreilalizer(serializers.ModelSerializer):
         task=TaskSreilalizer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('name','image','descreption','points','task')
+           fields=('id','name','image','descreption','points','task','start_date','end_date')
+
+
+
+       

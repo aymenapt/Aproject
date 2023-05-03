@@ -10,7 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ('email', 'username', 'password', 'role','is_verified','image','skills')
+        fields = ('id','email', 'username', 'password', 'role','is_verified','image','skills')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, attrs):
@@ -36,4 +36,4 @@ class VerifyOtpSeriliezer(serializers.Serializer):
     otp = serializers.CharField(required=True)
     class Meta :
         model=NewUser
-        fields=('email', 'role', 'is_verified', 'skills', 'image', 'otp')
+        fields=('id','email', 'role', 'is_verified', 'skills', 'image', 'otp')

@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import CreateChallenges, CreateImages, CreateParagrahe, CreateTitels, CreateTasks
+from .views import CreateChallenges, CreateImages, CreateParagrahe, CreateTitels, CreateTasks, PlanifyChallenge
 
-app_name = 'users'
+
 
 urlpatterns = [
     path('createchalenges/', CreateChallenges.as_view(),),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('creatTaskParagrahe/', CreateParagrahe.as_view(),),
     path('creatTaskTitels/', CreateTitels.as_view(),),
     path('creatTask/', CreateTasks.as_view(),),
+    path('planifychallenge/<int:pk>/', PlanifyChallenge.as_view()),
     
     
     
