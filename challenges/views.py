@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics 
 from.models import Challenges , Images, Paragraph, Task, Titel 
-from.serializers import ChallengesSreilalizer, ImagesSreilalizer, ParagraphSreilalizer ,TaskSreilalizer, TitelSreilalizer
+from.serializers import *
 from rest_framework.views import APIView , Response
-
+from rest_framework import status
+from rest_framework.decorators import api_view
 # Create your views here.
 class CreateTitels(generics.ListCreateAPIView):
      queryset=Titel.objects.all()
@@ -30,11 +31,45 @@ class CreateTasks(generics.ListCreateAPIView):
 class CreateChallenges(generics.ListCreateAPIView):
      queryset=Challenges.objects.all()
      serializer_class= ChallengesSreilalizer    
+"""
 
 class PlanifyChallenge(generics.RetrieveUpdateAPIView):
      queryset=Challenges.objects.all()
      serializer_class= ChallengesSreilalizer 
 
+"""
+
+
+class PlanifyChallenge(APIView):
+    def put(self, request, challenge_id):
+        challenge = Challenges.objects.get(id=challenge_id)
+        serializer = PlanifyChallengeSerializer(challenge,data=request.data)
+
+        if serializer.is_valid():
+            start_date = serializer.validated_data.get('start_date')
+            end_date = serializer.validated_data.get('end_date')
+            challenge.start_date = start_date
+            challenge.end_date = end_date
+            challenge.is_planified=True
+            challenge.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetPlanfiedchallenges(APIView):
+     def get(self,request):
+          challenge=Challenges.objects.filter(is_planified=True)
+          serializer=ChallengesSreilalizer(challenge,many=True)
+          
+          return Response(serializer.data, status=status.HTTP_200_OK)
+     
+class GetNONPlanfiedchallenges(APIView):
+     def get(self,request):
+          challenge=Challenges.objects.filter(is_planified= False)
+          serializer=ChallengesSreilalizer(challenge,many=True)
+          
+          return Response(serializer.data, status=status.HTTP_200_OK)     
 
 """""
 class PlanifyChallenge(APIView):

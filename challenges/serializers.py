@@ -31,8 +31,19 @@ class ChallengesSreilalizer(serializers.ModelSerializer):
         task=TaskSreilalizer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image','descreption','points','task','start_date','end_date')
+           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','format','max_teamsize','task')
 
 
 
-       
+class PlanifyChallengeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Challenges
+        fields = ['name', 'descreption', 'points', 'start_date', 'end_date','is_planified']
+        extra_kwargs = {
+            'name': {'required': False},
+            'descreption': {'required': False},
+            'points': {'required': False},
+            'start_date': {'required': True},
+            'end_date': {'required': True},
+            'is_planified': {'required': False}
+        }       

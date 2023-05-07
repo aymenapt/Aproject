@@ -20,10 +20,10 @@ class LoginView(APIView):
             user = NewUser.objects.get(email=email)
             bancount=user.bancount
         except NewUser.DoesNotExist:
-            return Response({'error': 'Invalid email or password'}, status=401)
+            return Response({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
         
         if user.is_verified == False :
-                 return Response({'error': 'This account must be verified'}, status=401)
+                 return Response({'error': 'This account must be verified'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
         if user.bancount ==3 :
@@ -42,7 +42,7 @@ class LoginView(APIView):
             print(user.bancount)
 
         if user.is_baned :
-             return Response({'error': 'this account baned for 2 min'}, status=401)
+             return Response({'error': 'this account baned for 2 min'}, status=status.HTTP_401_UNAUTHORIZED)
 
         if not user.check_password(password):
             bancount =bancount+1
@@ -50,15 +50,16 @@ class LoginView(APIView):
             user.save()
             print(user.bancount)
 
-            return Response({'error': 'Invalid email or password'}, status=401)
+            return Response({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
         
       
 
         serialzer=CustomUserSerializer(user)
         return Response({
-                    'status': 200 ,
                     'data':serialzer.data
-                      })
+                      },
+                      status=status.HTTP_200_OK
+                      )
 
 
 class CustomUserCreate(APIView):
@@ -73,15 +74,18 @@ class CustomUserCreate(APIView):
             if user:
                 json = serializer.data
                 return Response({
-                    'status': 200 ,
                     'message': 'regestration succesfuly check email',
-                    'data': json, })
+                    'data': json, },
+                    status=status.HTTP_200_OK
+                    )
                                  
             
         return Response({
-                    'status':400 ,
                     'message':'somthing went wrong' ,
-                    'data':serializer.errors })
+                    'data':serializer.errors },
+                    status=status.HTTP_400_BAD_REQUEST
+
+                    )
                              
 
 
@@ -94,30 +98,36 @@ class Verifyotp(APIView):
          
         if not user_queryset.exists():
             return Response({
-                    'status': 400,
+                    
                     'message': 'invalid email',
-                     })
+                     },
+                     status=status.HTTP_400_BAD_REQUEST
+                     )
         
         user = user_queryset.first()
         if user.otp != otp:
             return Response({
-                    'status': 400,
+                  
                     'message': 'wrong otp',
-                     })
+                     },
+                     status=status.HTTP_400_BAD_REQUEST
+                     )
         
 
         user.is_verified = True
         user.save()
         
         return Response({
-                    'status': 200,
+                   
                     'message': 'email verified',
                     'email': user.email,
                     'username': user.username,
                     'is_verified': user.is_verified,
                     'role': user.role,
                     'skills': user.skills,
-                     })
+                     },
+                     status=status.HTTP_200_OK
+                     )
 
         
 

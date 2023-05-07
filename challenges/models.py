@@ -4,11 +4,14 @@ from django.utils import timezone
 
 class Challenges(models.Model):
     name=models.CharField(max_length=255)
-    descreption=models.CharField(max_length=255)
+    descreption=models.CharField(max_length=255,blank=True)
     image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     points=models.IntegerField()
     start_date=models.DateTimeField(null=True,blank=True)
     end_date=models.DateTimeField(null=True,blank=True)
+    is_planified=models.BooleanField(default=False)
+    format=models.CharField(max_length=255,default="Jeopardy")
+    max_teamsize=models.IntegerField(default=0)
     def __str__(self) -> str:
         return self.name
 
