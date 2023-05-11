@@ -6,6 +6,13 @@ from rest_framework.views import APIView , Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 # Create your views here.
+
+class GetSposorAds(generics.ListCreateAPIView):
+     queryset=SposorAds.objects.all()
+     serializer_class= AdsSreilalizer
+
+
+
 class CreateTitels(generics.ListCreateAPIView):
      queryset=Titel.objects.all()
      serializer_class= TitelSreilalizer
@@ -26,6 +33,11 @@ class CreateParagrahe(generics.ListCreateAPIView):
 class CreateTasks(generics.ListCreateAPIView):
      queryset=Task.objects.all()
      serializer_class= TaskSreilalizer
+
+
+class CreateChallegeRules(generics.ListCreateAPIView):
+     queryset=ChallengeRules.objects.all()
+     serializer_class= ChallengeRulesSerializer
 
 
 class CreateChallenges(generics.ListCreateAPIView):
@@ -69,7 +81,10 @@ class GetNONPlanfiedchallenges(APIView):
           challenge=Challenges.objects.filter(is_planified= False)
           serializer=ChallengesSreilalizer(challenge,many=True)
           
-          return Response(serializer.data, status=status.HTTP_200_OK)     
+          return Response(serializer.data, status=status.HTTP_200_OK)   
+
+
+
 
 """""
 class PlanifyChallenge(APIView):

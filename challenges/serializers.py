@@ -1,6 +1,11 @@
 from rest_framework import serializers 
-from.models import Challenges ,Images ,Paragraph ,Task ,Titel
+from.models import *
 
+
+class AdsSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=SposorAds
+         fields="__all__"
 
 class ParagraphSreilalizer(serializers.ModelSerializer):
     class Meta :
@@ -27,11 +32,18 @@ class TaskSreilalizer(serializers.ModelSerializer):
          model=Task
          fields="__all__"
 
+class ChallengeRulesSerializer(serializers.ModelSerializer):
+     class Meta :
+         model=ChallengeRules
+         fields="__all__"
+              
+
 class ChallengesSreilalizer(serializers.ModelSerializer):
-        task=TaskSreilalizer(many=True,read_only=True)
+        task=TaskSreilalizer(many=True)
+        challengerule=ChallengeRulesSerializer(many=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','format','max_teamsize','task')
+           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challengerule','task')
 
 
 

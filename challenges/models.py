@@ -10,7 +10,6 @@ class Challenges(models.Model):
     start_date=models.DateTimeField(null=True,blank=True)
     end_date=models.DateTimeField(null=True,blank=True)
     is_planified=models.BooleanField(default=False)
-    format=models.CharField(max_length=255,default="Jeopardy")
     max_teamsize=models.IntegerField(default=0)
     def __str__(self) -> str:
         return self.name
@@ -43,3 +42,12 @@ class Paragraph(models.Model):
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="paragraph")
     paragraphnumber=models.IntegerField(default=0)
   
+
+
+class SposorAds(models.Model):
+    image=models.ImageField(upload_to='uploads/', blank=True, null=True)
+
+
+class ChallengeRules(models.Model):
+    rule=models.CharField(max_length=255)
+    challenges=models.ForeignKey(Challenges,on_delete= models.CASCADE,related_name="challengerule")

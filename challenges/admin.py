@@ -1,6 +1,6 @@
 from django.contrib import admin
-from.models import Challenges , Images, Paragraph, Task, Titel 
-from.serializers import ChallengesSreilalizer, ImagesSreilalizer, ParagraphSreilalizer ,TaskSreilalizer, TitelSreilalizer
+from.models import *
+
 
 # Register your models here.
 
@@ -21,8 +21,16 @@ class TaskAdmin(admin.ModelAdmin):
 
 admin.site.register(Task, TaskAdmin)
 
+class ChallengeRulesAdmin(admin.StackedInline):
+    model=ChallengeRules
 
+class ChallengeAdmin(admin.ModelAdmin):
+    inlines = [ChallengeRulesAdmin]
 
+    class Meta :
+        model =Challenges
 
+    
 
-admin.site.register(Challenges)
+admin.site.register(SposorAds)
+admin.site.register(Challenges,ChallengeAdmin)
