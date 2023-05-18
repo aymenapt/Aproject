@@ -22,18 +22,15 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # third party
     'rest_framework',
-    'oauth2_provider',
-    'social_django',
-    'drf_social_oauth2',
     'corsheaders',
     # apps
     'users',
@@ -138,8 +135,6 @@ REST_FRAMEWORK = {
 
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',  # django-oauth-toolkit < 1.0.0
         # django-oauth-toolkit >= 1.0.0
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'drf_social_oauth2.authentication.SocialAuthentication',
     ),
 }
 AUTH_USER_MODEL = "users.NewUser"
@@ -148,49 +143,8 @@ AUTH_USER_MODEL = "users.NewUser"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTHENTICATION_BACKENDS = (
-    'drf_social_oauth2.backends.DjangoOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-AUTHENTICATION_BACKENDS = (
-    # Others auth providers (e.g. Google, OpenId, etc)
-     # google
-     
-     
-    'social_core.backends.google.GoogleOAuth2',
-
-    # Facebook OAuth2
-    'social_core.backends.facebook.FacebookAppOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-
-    # drf_social_oauth2
-    'drf_social_oauth2.backends.DjangoOAuth2',
-
-    # Django
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-SOCIAL_AUTH_FACEBOOK_KEY = ('623067662627214')
-SOCIAL_AUTH_FACEBOOK_SECRET = ('7f228fb468d0fe14ff609140ce31d2163')
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://localhost:3000/'
 
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
-}
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ('495577281368-t1illqt43jhv8obmt432fcagnm4jgmnq.apps.googleusercontent.com')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ('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')
-
-# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile',
-]
-
-
-SOCIAL_AUTH_USER_FIELDS = ['email', 'username', 'first_name', 'password']
 
 
 
@@ -200,20 +154,27 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
     "http://localhost:8000",
+    'http://127.0.0.1:8000',
+    
     
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
+    'Accept',
+    'Authorization',
+    'Content-Type',
 ]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+]
+
 
 
 
@@ -225,5 +186,17 @@ EMAIL_HOST_USER = 'aacademy.platform@gmail.com'
 EMAIL_HOST_PASSWORD = 'atpqxmmkfkyfevni'
 
 
+JAZZMIN_SETTINGS = {
+    "welcome_sign": "Welcome Admin",
+    "site_title": "Aacademy",
+    "site_header": "Aacademy",
+    "site_brand": "Aacademy",
+
+
+    "usermenu_links": [
+        {"name": "Aymen", "url": "https://github.com/aymenapt", "new_window": True},
+        {"model": "users.NewUser"}
+    ],   
+}
 
 # The directory where Django will collect static files

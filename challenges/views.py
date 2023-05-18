@@ -26,7 +26,7 @@ class CreateImages(generics.ListCreateAPIView):
 
 
 class CreateParagrahe(generics.ListCreateAPIView):
-     queryset=Images.objects.all()
+     queryset=Paragraph.objects.all()
      serializer_class= ParagraphSreilalizer
 
 
@@ -84,7 +84,9 @@ class GetNONPlanfiedchallenges(APIView):
           return Response(serializer.data, status=status.HTTP_200_OK)   
 
 
-
+class RegeitreOnChallenge(generics.ListCreateAPIView):
+     queryset=Registre.objects.all()
+     serializer_class= RegistreSerializer  
 
 """""
 class PlanifyChallenge(APIView):

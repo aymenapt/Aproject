@@ -14,6 +14,8 @@ urlpatterns = [
     path('getPlanfiedchallenges/', GetPlanfiedchallenges.as_view()),
     path('getads/', GetSposorAds.as_view()),
     path('getNonPlanfiedchallenges/', GetNONPlanfiedchallenges.as_view()),
+    path('registre/', RegeitreOnChallenge.as_view()),
+
     
     
     

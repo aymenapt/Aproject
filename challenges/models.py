@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from users.models import NewUser
 # Create your models here.
 
 class Challenges(models.Model):
@@ -51,3 +52,9 @@ class SposorAds(models.Model):
 class ChallengeRules(models.Model):
     rule=models.CharField(max_length=255)
     challenges=models.ForeignKey(Challenges,on_delete= models.CASCADE,related_name="challengerule")
+
+
+class Registre(models.Model):
+    challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="registre")
+    registre_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="registre")
+

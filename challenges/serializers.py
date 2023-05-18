@@ -1,5 +1,27 @@
 from rest_framework import serializers 
 from.models import *
+from users.models import NewUser
+
+
+class UserSerializer(serializers.ModelSerializer):
+     class Meta :
+          model=NewUser
+          fields=['id','email', 'username']
+     
+
+
+class RegistreSerializer(serializers.ModelSerializer):
+     class Meta :
+          model=Registre
+          fields=['id','registre_by','challenge']
+
+
+
+class RegistreListSerializer(serializers.ModelSerializer):
+     user_detail=UserSerializer(read_only=True,source='registre_by')
+     class Meta :
+          model=Registre
+          fields=['id','user_detail']
 
 
 class AdsSreilalizer(serializers.ModelSerializer):
@@ -39,11 +61,12 @@ class ChallengeRulesSerializer(serializers.ModelSerializer):
               
 
 class ChallengesSreilalizer(serializers.ModelSerializer):
-        task=TaskSreilalizer(many=True)
-        challengerule=ChallengeRulesSerializer(many=True)
+        registre=RegistreListSerializer(many=True,read_only=True)
+        task=TaskSreilalizer(many=True,read_only=True)
+        challengerule=ChallengeRulesSerializer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challengerule','task')
+           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challengerule','registre','task')
 
 
 
@@ -59,3 +82,6 @@ class PlanifyChallengeSerializer(serializers.ModelSerializer):
             'end_date': {'required': True},
             'is_planified': {'required': False}
         }       
+
+
+
