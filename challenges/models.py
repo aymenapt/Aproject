@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from users.models import NewUser
 from django.core.validators import FileExtensionValidator
-
+from path.models import GamifiedCours
 # Create your models here.
 
 class Challenges(models.Model):
@@ -20,7 +20,8 @@ class Challenges(models.Model):
 class Task(models.Model):
     name=models.CharField(max_length=255)
     tasknumber=models.IntegerField()
-    challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="task")
+    challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="task",null=True,blank=True)
+    gamifiedcours=models.ForeignKey(GamifiedCours,on_delete=models.CASCADE,related_name="task",null=True,blank=True)
     def __str__(self) -> str:
         return self.name
 

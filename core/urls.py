@@ -12,7 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # User Management
     path('', include('users.urls')),
-    path('',include('challenges.urls'))
+    path('',include('challenges.urls')),
+    path('',include('path.urls'))
    
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
