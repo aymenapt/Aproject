@@ -34,6 +34,21 @@ class ParagraphSreilalizer(serializers.ModelSerializer):
          model=Paragraph
          fields= "__all__"
 
+class VideoSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Video
+         fields= "__all__"         
+
+class QuestionSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Question
+         fields= "__all__"         
+
+class TaskFileSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=TaskFile
+         fields= "__all__"         
+
 class ImagesSreilalizer(serializers.ModelSerializer):
     class Meta :
          model=Images
@@ -49,7 +64,9 @@ class TaskSreilalizer(serializers.ModelSerializer):
      images=ImagesSreilalizer(many=True,read_only=True)
      titel=TitelSreilalizer(many=True,read_only=True)
      paragraph=ParagraphSreilalizer(many=True,read_only=True)
-     
+     taskfile=TaskFileSreilalizer(many=True,read_only=True)
+     question=QuestionSreilalizer(many=True,read_only=True)
+     video=VideoSreilalizer(many=True,read_only=True)
      class Meta :
          model=Task
          fields="__all__"

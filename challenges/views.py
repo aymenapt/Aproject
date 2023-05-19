@@ -23,12 +23,21 @@ class CreateImages(generics.ListCreateAPIView):
      queryset=Paragraph.objects.all()
      serializer_class= ImagesSreilalizer     
 
-
+class CreateFile(generics.ListCreateAPIView):
+     queryset=TaskFile.objects.all()
+     serializer_class= TaskFileSreilalizer
 
 class CreateParagrahe(generics.ListCreateAPIView):
      queryset=Paragraph.objects.all()
      serializer_class= ParagraphSreilalizer
 
+class CreateQuestion(generics.ListCreateAPIView):
+     queryset=Question.objects.all()
+     serializer_class= QuestionSreilalizer
+
+class CreateVideo(generics.ListCreateAPIView):
+     queryset=Video.objects.all()
+     serializer_class= VideoSreilalizer     
 
 class CreateTasks(generics.ListCreateAPIView):
      queryset=Task.objects.all()

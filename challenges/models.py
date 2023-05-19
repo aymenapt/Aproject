@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from users.models import NewUser
+from django.core.validators import FileExtensionValidator
+
 # Create your models here.
 
 class Challenges(models.Model):
@@ -57,4 +59,24 @@ class ChallengeRules(models.Model):
 class Registre(models.Model):
     challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="registre")
     registre_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="registre")
+
+class TaskFile(models.Model):
+    task_file = models.FileField(upload_to='task_files/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
+    task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="taskfile")
+    filenumber=models.IntegerField(default=0)
+
+class Question(models.Model):
+    question=models.CharField(max_length=800)
+    question_number=models.IntegerField(default=0)
+    question_point=models.IntegerField(default=0)
+    question_solution=models.CharField(max_length=255)
+    question_hint=models.CharField(max_length=255)
+    task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="question")
+
+class Video(models.Model):
+    video_url = models.URLField()
+    video_number=models.IntegerField(default=0)
+    task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="video")
+    
+
 
