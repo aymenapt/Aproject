@@ -7,10 +7,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True)
     role = serializers.CharField(required=True)
     password = serializers.CharField(min_length=8, write_only=True)
+    image_url = serializers.SerializerMethodField()
+    def get_image_url(self, obj):
+          if obj.image:
+            return f"http://127.0.0.1:8000{obj.image.url}"
+          return None
 
     class Meta:
         model = NewUser
-        fields = ('id','email', 'username', 'password', 'role','is_verified','image','skills')
+        fields = ('id','email', 'username', 'password', 'role','is_verified','image','image_url','skills')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, attrs):
@@ -34,15 +39,25 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class VerifyOtpSeriliezer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     otp = serializers.CharField(required=True)
+    image_url = serializers.SerializerMethodField()
+    def get_image_url(self, obj):
+          if obj.image:
+            return f"http://127.0.0.1:8000{obj.image.url}"
+          return None
     class Meta :
         model=NewUser
-        fields=('id','email', 'role', 'is_verified', 'skills', 'image', 'otp')
+        fields=('id','email', 'role', 'is_verified', 'skills', 'image','image_url', 'otp')
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    def get_image_url(self, obj):
+          if obj.image:
+            return f"http://127.0.0.1:8000{obj.image.url}"
+          return None
     class Meta :
         model=NewUser
-        fields=('id','email','username','skills', 'image')
+        fields=('id','email','username','skills', 'image','image_url')
         extra_kwargs = {
             'email': {'required': False},
             'username': {'required': False},
