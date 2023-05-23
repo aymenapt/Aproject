@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers 
 from.models import *
 from users.models import NewUser
@@ -50,9 +51,15 @@ class TaskFileSreilalizer(serializers.ModelSerializer):
          fields= "__all__"         
 
 class ImagesSreilalizer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    def get_image_url(self, obj):
+          if obj.image:
+            return f"http://127.0.0.1:8000{obj.image.url}"
+          return None
     class Meta :
          model=Images
-         fields="__all__"
+         fields=("id","image","image_url","imagenumber","task")
 
 class TitelSreilalizer(serializers.ModelSerializer):
     class Meta :
@@ -78,12 +85,18 @@ class ChallengeRulesSerializer(serializers.ModelSerializer):
               
 
 class ChallengesSreilalizer(serializers.ModelSerializer):
+        image_url = serializers.SerializerMethodField()
+
+        def get_image_url(self, obj):
+          if obj.image:
+            return f"http://127.0.0.1:8000{obj.image.url}"
+          return None
         registre=RegistreListSerializer(many=True,read_only=True)
         task=TaskSreilalizer(many=True,read_only=True)
         challengerule=ChallengeRulesSerializer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','task')
+           fields=('id','name','image',"image_url",'descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','task')
 
 
 

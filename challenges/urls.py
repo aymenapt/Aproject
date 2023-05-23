@@ -1,8 +1,6 @@
 from django.urls import path
 from .views import *
 
-
-
 urlpatterns = [
     path('createchalenges/', CreateChallenges.as_view(),),
     path('creatTaskImages/', CreateImages.as_view(),),
