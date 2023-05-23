@@ -37,3 +37,15 @@ class VerifyOtpSeriliezer(serializers.Serializer):
     class Meta :
         model=NewUser
         fields=('id','email', 'role', 'is_verified', 'skills', 'image', 'otp')
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta :
+        model=NewUser
+        fields=('id','email','username','skills', 'image')
+        extra_kwargs = {
+            'email': {'required': False},
+            'username': {'required': False},
+            'skills': {'required': False},
+            'image': {'required': False},
+        }   

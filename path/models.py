@@ -4,6 +4,7 @@ from django.db import models
 
 class LearningPath(models.Model):
     name=models.CharField(max_length=255)
+    descreption=models.CharField(max_length=255,blank=True)
     image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     def __str__(self) -> str:
         return self.name

@@ -3,6 +3,7 @@ from django.utils import timezone
 from users.models import NewUser
 from django.core.validators import FileExtensionValidator
 from path.models import GamifiedCours
+from job.models import JobOffer
 # Create your models here.
 
 class Challenges(models.Model):
@@ -14,8 +15,13 @@ class Challenges(models.Model):
     end_date=models.DateTimeField(null=True,blank=True)
     is_planified=models.BooleanField(default=False)
     max_teamsize=models.IntegerField(default=0)
+    MY_CHOICES = (
+        ('challenge', 'challenge'),
+        ('job', 'job'), )
+    challenge_type = models.CharField(max_length=75, choices=MY_CHOICES)
+    job=models.ForeignKey(JobOffer,on_delete=models.CASCADE,null=True,blank=True,related_name="challenge")
     def __str__(self) -> str:
-        return self.name
+        return self.name 
 
 class Task(models.Model):
     name=models.CharField(max_length=255)

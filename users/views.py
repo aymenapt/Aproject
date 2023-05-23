@@ -1,7 +1,7 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer,VerifyOtpSeriliezer
+from .serializers import CustomUserSerializer,VerifyOtpSeriliezer,UpdateUserSerializer
 from rest_framework.permissions import AllowAny
 from.models import NewUser
 from rest_framework import status
@@ -9,6 +9,9 @@ from rest_framework.response import Response
 from.email import send_otp_via_email
 from django.utils import timezone
 from datetime import timedelta
+
+
+
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
@@ -130,7 +133,14 @@ class Verifyotp(APIView):
                      )
 
         
+class UserUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = NewUser.objects.all()
+    serializer_class = UpdateUserSerializer
+    lookup_field = 'id'
 
+class UserDelete(generics.DestroyAPIView):
+    queryset = NewUser.objects.all()
+    serializer_class = CustomUserCreate
 
 
         

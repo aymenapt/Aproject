@@ -83,7 +83,7 @@ class ChallengesSreilalizer(serializers.ModelSerializer):
         challengerule=ChallengeRulesSerializer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challengerule','registre','task')
+           fields=('id','name','image','descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','task')
 
 
 

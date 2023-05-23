@@ -5,6 +5,7 @@ from.serializers import *
 from rest_framework.views import APIView , Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from django.db.models import Q
 # Create your views here.
 
 class GetSposorAds(generics.ListCreateAPIView):
@@ -80,14 +81,14 @@ class PlanifyChallenge(APIView):
 
 class GetPlanfiedchallenges(APIView):
      def get(self,request):
-          challenge=Challenges.objects.filter(is_planified=True)
+          challenge=Challenges.objects.filter( Q(is_planified=True) & Q(challenge_type="challenge"))
           serializer=ChallengesSreilalizer(challenge,many=True)
           
           return Response(serializer.data, status=status.HTTP_200_OK)
      
 class GetNONPlanfiedchallenges(APIView):
      def get(self,request):
-          challenge=Challenges.objects.filter(is_planified= False)
+          challenge=Challenges.objects.filter( Q(is_planified=False) & Q(challenge_type="challenge"))
           serializer=ChallengesSreilalizer(challenge,many=True)
           
           return Response(serializer.data, status=status.HTTP_200_OK)   
