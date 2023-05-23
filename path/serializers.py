@@ -8,7 +8,7 @@ class GamifiedCoursSerializer(serializers.ModelSerializer):
     task=TaskSreilalizer(many=True,read_only=True)
     class Meta :
         model= GamifiedCours
-        fields=('id','name','image','descreption','learningpath','start_date','end_date','points','task')
+        fields=('id','name','image','descreption','learningpath','task')
 
 
 

@@ -141,6 +141,7 @@ class UserUpdateView(generics.RetrieveUpdateAPIView):
 class UserDelete(generics.DestroyAPIView):
     queryset = NewUser.objects.all()
     serializer_class = CustomUserCreate
+    lookup_field = 'id'
 
 
         

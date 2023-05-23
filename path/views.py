@@ -16,3 +16,14 @@ class CreateLearinigPath(generics.ListCreateAPIView):
 class CreateGamifiedCours(generics.ListCreateAPIView):
      queryset=GamifiedCours.objects.all()
      serializer_class= GamifiedCoursSerializer  
+
+
+class LearnPathUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LearningPath.objects.all()
+    serializer_class = LearningPathSerializer  
+    lookup_field = 'id'   
+
+class GamifiedCoursUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = GamifiedCours.objects.all()
+    serializer_class = GamifiedCoursSerializer 
+    lookup_field = 'id'   
