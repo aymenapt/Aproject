@@ -68,7 +68,7 @@ class Registre(models.Model):
     registre_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="registre")
 
 class TaskFile(models.Model):
-    task_file = models.FileField(upload_to='task_files/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
+    task_file = models.FileField(upload_to='task_files/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx', 'rar'])])
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="taskfile")
     filenumber=models.IntegerField(default=0)
 
