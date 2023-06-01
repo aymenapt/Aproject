@@ -7,7 +7,7 @@ from users.models import NewUser
 class UserSerializer(serializers.ModelSerializer):
      class Meta :
           model=NewUser
-          fields=['id','email', 'username']
+          fields=['id','email', 'username','point']
      
 
 
@@ -16,7 +16,10 @@ class RegistreSerializer(serializers.ModelSerializer):
           model=Registre
           fields=['id','registre_by','challenge']
 
-
+class ParticipateSerializer(serializers.ModelSerializer):
+     class Meta :
+          model=Participate
+          fields=['id','participate_by','challenge','participate_result']
 
 class RegistreListSerializer(serializers.ModelSerializer):
      user_detail=UserSerializer(read_only=True,source='registre_by')
@@ -24,6 +27,11 @@ class RegistreListSerializer(serializers.ModelSerializer):
           model=Registre
           fields=['id','user_detail']
 
+class ParticipateListSerializer(serializers.ModelSerializer):
+     user_detail=UserSerializer(read_only=True,source='participate_by')
+     class Meta :
+          model=Participate
+          fields=['id','user_detail','participate_result']
 
 class AdsSreilalizer(serializers.ModelSerializer):
     class Meta :
@@ -92,11 +100,12 @@ class ChallengesSreilalizer(serializers.ModelSerializer):
             return f"http://127.0.0.1:8000{obj.image.url}"
           return None
         registre=RegistreListSerializer(many=True,read_only=True)
+        participate=ParticipateListSerializer(many=True,read_only=True)
         task=TaskSreilalizer(many=True,read_only=True)
         challengerule=ChallengeRulesSerializer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image',"image_url",'descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','task')
+           fields=('id','name','image',"image_url",'descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','participate','task')
 
 
 
@@ -115,3 +124,7 @@ class PlanifyChallengeSerializer(serializers.ModelSerializer):
 
 
 
+class AnswerSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = Answer
+        fields = ['answer','question','user']

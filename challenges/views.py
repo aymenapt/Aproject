@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework import generics 
 from.models import Challenges , Images, Paragraph, Task, Titel 
 from.serializers import *
@@ -95,28 +95,97 @@ class GetNONPlanfiedchallenges(APIView):
 
 
 class RegeitreOnChallenge(generics.ListCreateAPIView):
-     queryset=Registre.objects.all()
-     serializer_class= RegistreSerializer  
-
-"""""
-class PlanifyChallenge(APIView):
-    def put(self, request, pk):
-        challenge = Challenges.objects.get(id=pk)
-        serializer = PlanifyChallengeSerializer(challenge, data=request.data)
-        if serializer.is_valid():
+  
+      queryset = Registre.objects.all()
+      serializer_class = RegistreSerializer
+    
+      def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        challenge_id = serializer.validated_data['challenge'].id
+        challenge = Challenges.objects.get(id=challenge_id)
+        
+        if timezone.now() < challenge.start_date:
             serializer.save()
             return Response({
-                'status': 200,
-                'message': 'Challenge start and end dates updated successfully',
+                'message': 'You are registered',
                 'data': serializer.data
-            })
+            }, status=status.HTTP_201_CREATED)
+        
         return Response({
-            'status': 400,
-            'message': 'Invalid input',
+            'message': 'Registration not allowed for this challenge',
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ParticipateOnChallenge(generics.ListCreateAPIView):
+    queryset = Participate.objects.all()
+    serializer_class = ParticipateSerializer
+      
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        participate_id = serializer.validated_data['participate_by'].id
+        
+        if Registre.objects.filter(registre_by=participate_id).exists():
+            serializer.save()
+            return Response({
+                'message': 'You have successfully participated.',
+                'data': serializer.data
+            }, status=status.HTTP_200_OK)
+        
+        return Response({
+            'message': 'You are not registered.',
             'data': serializer.errors
-        })
-          
-"""""
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class Answer(generics.ListCreateAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        answer = serializer.validated_data['answer']
+        question = serializer.validated_data['question']
+        
+        participate = get_object_or_404(Participate, participate_by=user)
+        current_question = get_object_or_404(Question, id=question.id)
+        
+        if current_question.question_solution == answer:
+            participate.participate_result += current_question.question_point
+            participate.save()
+            
+            user.point += current_question.question_point
+            user.save()
+            
+            return Response({
+                'message': 'Correct answer',
+                'data': serializer.data
+            }, status=status.HTTP_200_OK)
+
+        return Response({
+            'message': 'Wrong answer',
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+             
+
+
+
+             
+
+
+
+
+
+
+
+
+
+           
      
       
 

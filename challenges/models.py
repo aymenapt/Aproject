@@ -67,6 +67,15 @@ class Registre(models.Model):
     challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="registre")
     registre_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="registre")
 
+class Participate(models.Model):
+    challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="participate")
+    participate_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="participate")
+    participate_result=models.IntegerField(default=0)
+    class Meta:
+        ordering = ('-participate_result',)
+
+
+
 class TaskFile(models.Model):
     task_file = models.FileField(upload_to='task_files/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx', 'rar'])])
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="taskfile")
@@ -87,3 +96,7 @@ class Video(models.Model):
     
 
 
+class Answer(models.Model):
+    answer=models.CharField(max_length=800)
+    user=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="answer")
+    question =models.ForeignKey(Question,on_delete=models.CASCADE,related_name="answer")

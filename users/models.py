@@ -40,6 +40,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150,unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     role = models.CharField(max_length=40)
+    point=models.IntegerField(null=True,blank=True,default=0)
     skills=models.CharField(max_length=255, blank=True,null=True)
     image=models.ImageField(upload_to='uploads/', blank=True, null=True)
     otp=models.CharField(max_length=40,blank=True)
