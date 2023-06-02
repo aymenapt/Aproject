@@ -38,15 +38,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class VerifyOtpSeriliezer(serializers.Serializer):
     email = serializers.EmailField(required=True)
-    otp = serializers.CharField(required=True)
-    image_url = serializers.SerializerMethodField()
-    def get_image_url(self, obj):
-          if obj.image:
-            return f"http://127.0.0.1:8000{obj.image.url}"
-          return None
+    otp = serializers.CharField(required=True) 
     class Meta :
         model=NewUser
-        fields=('id','email', 'role', 'is_verified', 'skills', 'image','image_url', 'otp')
+        fields=('id','email', 'role', 'is_verified', 'skills', 'image', 'otp')
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):

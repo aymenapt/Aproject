@@ -18,27 +18,55 @@ class CreateTitels(generics.ListCreateAPIView):
      queryset=Titel.objects.all()
      serializer_class= TitelSreilalizer
 
-
+class TitelUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Titel.objects.all()
+    serializer_class = UpdateTitelSreilalizer
+    lookup_field = 'id'  
 
 class CreateImages(generics.ListCreateAPIView):
      queryset=Paragraph.objects.all()
      serializer_class= ImagesSreilalizer     
 
+class ImagesUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Images.objects.all()
+    serializer_class = UpdateImagesSreilalizer
+    lookup_field = 'id' 
+
 class CreateFile(generics.ListCreateAPIView):
      queryset=TaskFile.objects.all()
      serializer_class= TaskFileSreilalizer
+
+class FileUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TaskFile.objects.all()
+    serializer_class = UpdateFileSreilalizer
+    lookup_field = 'id' 
 
 class CreateParagrahe(generics.ListCreateAPIView):
      queryset=Paragraph.objects.all()
      serializer_class= ParagraphSreilalizer
 
+class ParagrapheUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Paragraph.objects.all()
+    serializer_class = UpdateParagraphSreilalizer
+    lookup_field = 'id' 
+
 class CreateQuestion(generics.ListCreateAPIView):
      queryset=Question.objects.all()
      serializer_class= QuestionSreilalizer
 
+class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = UpdateQuestionSreilalizer
+    lookup_field = 'id' 
+
 class CreateVideo(generics.ListCreateAPIView):
      queryset=Video.objects.all()
      serializer_class= VideoSreilalizer     
+
+class VideoUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Video.objects.all()
+    serializer_class = UpdateVideoSreilalizer
+    lookup_field = 'id' 
 
 class CreateTasks(generics.ListCreateAPIView):
      queryset=Task.objects.all()

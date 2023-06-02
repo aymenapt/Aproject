@@ -90,7 +90,7 @@ class Question(models.Model):
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="question")
 
 class Video(models.Model):
-    video_url = models.URLField()
+    task_vedio = models.FileField(blank=True,null=True,upload_to='task_video/', validators=[FileExtensionValidator(allowed_extensions=['mp3', 'mp4',])])
     video_number=models.IntegerField(default=0)
     task=models.ForeignKey(Task,on_delete=models.CASCADE,related_name="video")
     

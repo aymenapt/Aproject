@@ -43,20 +43,63 @@ class ParagraphSreilalizer(serializers.ModelSerializer):
          model=Paragraph
          fields= "__all__"
 
+class UpdateParagraphSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Paragraph
+         fields= "__all__"
+         extra_kwargs = {
+            'paragraph': {'required': False},
+            'task': {'required': False},
+            'paragraphnumber': {'required': False},
+        }       
+
 class VideoSreilalizer(serializers.ModelSerializer):
     class Meta :
          model=Video
-         fields= "__all__"         
+         fields= "__all__"     
+
+class UpdateVideoSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Video
+         fields= "__all__"
+         extra_kwargs = {
+            'task_vedio': {'required': False},
+            'task': {'required': False},
+            'video_number': {'required': False},
+        }    
 
 class QuestionSreilalizer(serializers.ModelSerializer):
     class Meta :
          model=Question
-         fields= "__all__"         
+         fields= "__all__"    
+
+class UpdateQuestionSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Question
+         fields= "__all__"
+         extra_kwargs = {
+            'question': {'required': False},
+            'task': {'required': False},
+            'question_number': {'required': False},
+            'question_point': {'required': False},
+            'question_solution': {'required': False},
+            'question_hint': {'required': False},
+        }
 
 class TaskFileSreilalizer(serializers.ModelSerializer):
     class Meta :
          model=TaskFile
          fields= "__all__"         
+
+class UpdateFileSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=TaskFile
+         fields= "__all__"
+         extra_kwargs = {
+            'task_file': {'required': False},
+            'task': {'required': False},
+            'filenumber': {'required': False},
+        }             
 
 class ImagesSreilalizer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -69,11 +112,30 @@ class ImagesSreilalizer(serializers.ModelSerializer):
          model=Images
          fields=("id","image","image_url","imagenumber","task")
 
+class UpdateImagesSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Images
+         fields= "__all__"
+         extra_kwargs = {
+            'image': {'required': False},
+            'task': {'required': False},
+            'imagenumber': {'required': False},
+        } 
 class TitelSreilalizer(serializers.ModelSerializer):
     class Meta :
          model=Titel
          fields="__all__"
 
+
+class UpdateTitelSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Titel
+         fields= "__all__"
+         extra_kwargs = {
+            'titel': {'required': False},
+            'task': {'required': False},
+            'titelnumber': {'required': False},
+        } 
 
 class TaskSreilalizer(serializers.ModelSerializer):
      images=ImagesSreilalizer(many=True,read_only=True)
