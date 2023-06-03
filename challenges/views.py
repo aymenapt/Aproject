@@ -179,8 +179,10 @@ class Answer(generics.ListCreateAPIView):
         user = serializer.validated_data['user']
         answer = serializer.validated_data['answer']
         question = serializer.validated_data['question']
+        mychallenge = serializer.validated_data['challenge']
         
-        participate = get_object_or_404(Participate, participate_by=user)
+        participate = get_object_or_404(Participate,Q(participate_by=user)&Q(challenge=mychallenge))
+        #Q(is_planified=False) & Q(challenge_type="challenge")
         current_question = get_object_or_404(Question, id=question.id)
         
         if current_question.question_solution == answer:

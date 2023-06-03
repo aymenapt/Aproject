@@ -34,3 +34,10 @@ class ChallengeAdmin(admin.ModelAdmin):
 
 admin.site.register(SposorAds)
 admin.site.register(Challenges,ChallengeAdmin)
+
+admin.site.register(Answer)
+admin.site.register(Participate)
+admin.site.register(Registre)
+admin.site.register(Question)
+admin.site.register(TaskFile)
+

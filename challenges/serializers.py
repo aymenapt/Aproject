@@ -189,4 +189,4 @@ class PlanifyChallengeSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
      class Meta:
         model = Answer
-        fields = ['answer','question','user']
+        fields = ['answer','question','user','challenge']
