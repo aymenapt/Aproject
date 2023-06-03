@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics 
-from.models import Challenges , Images, Paragraph, Task, Titel 
+from.models import Challenges , Images, Paragraph, Task, Titel , Answer
 from.serializers import *
 from rest_framework.views import APIView , Response
 from rest_framework import status
@@ -169,7 +169,7 @@ class ParticipateOnChallenge(generics.ListCreateAPIView):
     
 
 
-class Answer(generics.ListCreateAPIView):
+class MyAnswer(generics.ListCreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
     
@@ -182,25 +182,42 @@ class Answer(generics.ListCreateAPIView):
         mychallenge = serializer.validated_data['challenge']
         
         participate = get_object_or_404(Participate,Q(participate_by=user)&Q(challenge=mychallenge))
-        #Q(is_planified=False) & Q(challenge_type="challenge")
-        current_question = get_object_or_404(Question, id=question.id)
         
-        if current_question.question_solution == answer:
-            participate.participate_result += current_question.question_point
-            participate.save()
+        current_question = get_object_or_404(Question, id=question.id)
+
+        
+        try:
+             
+             answer = Answer.objects.get(participate=participate.id, question=question.id)
+             print(answer)
+             return Response({
+                  'message': 'You have already answered this',
+                  'data': serializer.errors
+                     }, status=status.HTTP_400_BAD_REQUEST)
+        except Answer.DoesNotExist:
             
-            user.point += current_question.question_point
-            user.save()
+            if current_question.question_solution == answer:
+               serializer.save()
+               participate.participate_result += current_question.question_point
+               participate.save()
+               
             
-            return Response({
+               user.point += current_question.question_point
+               user.save()
+               
+            
+               return Response({
                 'message': 'Correct answer',
                 'data': serializer.data
-            }, status=status.HTTP_200_OK)
+                  }, status=status.HTTP_200_OK)
 
-        return Response({
-            'message': 'Wrong answer',
-            'errors': serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+              'message': 'Wrong answer',
+                'errors': serializer.errors
+              }, status=status.HTTP_400_BAD_REQUEST)
+ 
+       
+        
              
 
 

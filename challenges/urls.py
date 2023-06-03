@@ -23,7 +23,7 @@ urlpatterns = [
     path('getNonPlanfiedchallenges/', GetNONPlanfiedchallenges.as_view()),
     path('registre/', RegeitreOnChallenge.as_view()),
     path('participate/', ParticipateOnChallenge.as_view()),
-    path('answer/', Answer.as_view()),
+    path('answer/', MyAnswer.as_view()),
 
 
     

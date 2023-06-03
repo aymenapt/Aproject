@@ -16,10 +16,16 @@ class RegistreSerializer(serializers.ModelSerializer):
           model=Registre
           fields=['id','registre_by','challenge']
 
+class AnswerSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = Answer
+        fields = ['answer','question','user','challenge','participate'] 
+
 class ParticipateSerializer(serializers.ModelSerializer):
+     answers = AnswerSerializer(many=True,read_only=True)
      class Meta :
           model=Participate
-          fields=['id','participate_by','challenge','participate_result']
+          fields=['id','participate_by','challenge','participate_result','answers']
 
 class RegistreListSerializer(serializers.ModelSerializer):
      user_detail=UserSerializer(read_only=True,source='registre_by')
@@ -27,11 +33,14 @@ class RegistreListSerializer(serializers.ModelSerializer):
           model=Registre
           fields=['id','user_detail']
 
+      
+
 class ParticipateListSerializer(serializers.ModelSerializer):
+     answers = AnswerSerializer(many=True,read_only=True)
      user_detail=UserSerializer(read_only=True,source='participate_by')
      class Meta :
           model=Participate
-          fields=['id','user_detail','participate_result']
+          fields=['id','user_detail','participate_result','answers']
 
 class AdsSreilalizer(serializers.ModelSerializer):
     class Meta :
@@ -186,7 +195,4 @@ class PlanifyChallengeSerializer(serializers.ModelSerializer):
 
 
 
-class AnswerSerializer(serializers.ModelSerializer):
-     class Meta:
-        model = Answer
-        fields = ['answer','question','user','challenge']
+

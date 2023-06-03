@@ -97,7 +97,8 @@ class Video(models.Model):
 
 
 class Answer(models.Model):
-    answer=models.CharField(max_length=800)
-    user=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="answer")
-    challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="answer")
-    question =models.ForeignKey(Question,on_delete=models.CASCADE,related_name="answer")
+    answer = models.CharField(max_length=800)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name="answers")
+    challenge = models.ForeignKey(Challenges, on_delete=models.CASCADE, related_name="answers")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
+    participate = models.ForeignKey(Participate, on_delete=models.CASCADE, related_name="answers", null=True, blank=True)
