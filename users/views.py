@@ -145,3 +145,6 @@ class UserDelete(generics.DestroyAPIView):
 
 
         
+class getallusers(generics.ListCreateAPIView):
+     queryset=NewUser.objects.all()
+     serializer_class= CustomUserSerializer       

@@ -68,3 +68,5 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
        if self.image :
           return self.image.url
        return ''
+    class Meta:
+        ordering = ('-point',)
