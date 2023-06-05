@@ -73,6 +73,12 @@ class CreateTasks(generics.ListCreateAPIView):
      serializer_class= TaskSreilalizer
 
 
+class TaskUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = UpdateTaskSreilalizer
+    lookup_field = 'id' 
+
+
 class CreateChallegeRules(generics.ListCreateAPIView):
      queryset=ChallengeRules.objects.all()
      serializer_class= ChallengeRulesSerializer

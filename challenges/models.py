@@ -20,6 +20,7 @@ class Challenges(models.Model):
         ('job', 'job'), )
     challenge_type = models.CharField(max_length=75, choices=MY_CHOICES)
     job=models.ForeignKey(JobOffer,on_delete=models.CASCADE,null=True,blank=True,related_name="challenge")
+    created_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,null=True,blank=True,related_name="challenge")
     def __str__(self) -> str:
         return self.name 
 

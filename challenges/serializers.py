@@ -157,6 +157,24 @@ class TaskSreilalizer(serializers.ModelSerializer):
          model=Task
          fields="__all__"
 
+
+class UpdateTaskSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Task
+         fields= "__all__"
+         extra_kwargs = {
+            'images': {'required': False},
+            'titel': {'required': False},
+            'paragraph': {'required': False},
+            'taskfile': {'required': False},
+            'question': {'required': False},
+            'video': {'required': False},
+            'tasknumber': {'required': False},
+            'challenge': {'required': False},
+            'gamifiedcours': {'required': False},
+        }   
+
+
 class ChallengeRulesSerializer(serializers.ModelSerializer):
      class Meta :
          model=ChallengeRules
@@ -176,7 +194,7 @@ class ChallengesSreilalizer(serializers.ModelSerializer):
         challengerule=ChallengeRulesSerializer(many=True,read_only=True)
         class Meta :
            model=Challenges
-           fields=('id','name','image',"image_url",'descreption','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','participate','task')
+           fields=('id','name','image',"image_url",'descreption','created_by','start_date','end_date','points','is_planified','max_teamsize','challenge_type','job','challengerule','registre','participate','task')
 
 
 

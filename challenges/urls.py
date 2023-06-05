@@ -10,6 +10,7 @@ urlpatterns = [
     path('createquestion/', CreateQuestion.as_view(),),
     path('createvideo/', CreateVideo.as_view(),),
     path('creatTask/', CreateTasks.as_view(),),
+    path('updatetask/<int:id>/', TaskUpdateView.as_view()),
     path('creatrules/', CreateChallegeRules.as_view(),),
     path('videoUpdateDelete/<int:id>/', VideoUpdateView.as_view()),
     path('questionUpdateDelete/<int:id>/', QuestionUpdateView.as_view()),

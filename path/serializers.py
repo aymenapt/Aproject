@@ -26,6 +26,6 @@ class LearningPathSerializer(serializers.ModelSerializer):
           return None
     class Meta :
         model= LearningPath
-        fields=('id','name','image','image_url','gamifiedcours',)
+        fields=('id','name','image','image_url','created_by','gamifiedcours',)
 
 
