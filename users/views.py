@@ -1,12 +1,12 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer,VerifyOtpSeriliezer,UpdateUserSerializer
+from .serializers import CustomUserSerializer,VerifyOtpSeriliezer,UpdateUserSerializer,InterviewSerializer
 from rest_framework.permissions import AllowAny
 from.models import NewUser
 from rest_framework import status
 from rest_framework.response import Response
-from.email import send_otp_via_email
+from.email import send_otp_via_email ,sendinterview
 from django.utils import timezone
 from datetime import timedelta
 
@@ -148,3 +148,15 @@ class UserDelete(generics.DestroyAPIView):
 class getallusers(generics.ListCreateAPIView):
      queryset=NewUser.objects.all()
      serializer_class= CustomUserSerializer       
+
+
+class SendInterview(APIView):
+    def post(self, request, format='json'):
+        sendinterview(request.data['email'],request.data['interviewlink'])
+        return Response({'message': 'Interview was sent'}, status=status.HTTP_200_OK)
+     
+        
+
+
+
+      

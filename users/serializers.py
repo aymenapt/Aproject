@@ -59,3 +59,10 @@ class UpdateUserSerializer(serializers.ModelSerializer):
             'skills': {'required': False},
             'image': {'required': False},
         }   
+
+
+
+class InterviewSerializer(serializers.ModelSerializer):
+        class Meta :
+          model=NewUser
+          fields=('id','email','interviewlink')

@@ -14,3 +14,8 @@ def send_otp_via_email (email):
     user_obj.otp=otp
     user_obj.save()
 
+def sendinterview (email,interviewlink):
+    subject = 'Congrats'
+    message=f'Your interview link  is {interviewlink}'
+    email_from =settings.EMAIL_HOST_USER
+    send_mail(subject, message, email_from, [email] )

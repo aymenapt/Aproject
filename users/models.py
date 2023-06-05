@@ -46,6 +46,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     otp=models.CharField(max_length=40,blank=True)
     is_verified=models.BooleanField(default=False)
     is_baned=models.BooleanField(default=False)
+    interviewlink=models.CharField(max_length=800,null=True,blank=True)
     bancount=models.IntegerField(null=True,blank=True,default=0)
     baned_time=models.DateTimeField(default=timezone.now)
     start_date = models.DateTimeField(default=timezone.now)
