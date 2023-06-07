@@ -14,7 +14,7 @@ class Challenges(models.Model):
     start_date=models.DateTimeField(null=True,blank=True)
     end_date=models.DateTimeField(null=True,blank=True)
     is_planified=models.BooleanField(default=False)
-    max_teamsize=models.IntegerField(default=0)
+    max_teamsize=models.IntegerField(default=1)
     MY_CHOICES = (
         ('challenge', 'challenge'),
         ('job', 'job'), )
@@ -72,8 +72,9 @@ class Participate(models.Model):
     challenge=models.ForeignKey(Challenges,on_delete=models.CASCADE,related_name="participate")
     participate_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="participate")
     participate_result=models.IntegerField(default=0)
+    finaldate_participate=models.DateTimeField(null=True,blank=True)
     class Meta:
-        ordering = ('-participate_result',)
+        ordering = ('-participate_result','finaldate_participate')
 
 
 

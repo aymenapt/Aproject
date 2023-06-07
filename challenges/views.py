@@ -224,7 +224,17 @@ class MyAnswer(generics.ListCreateAPIView):
               }, status=status.HTTP_400_BAD_REQUEST)
  
        
-        
+class FinalParticipate(APIView):
+    def put(self, request, id):
+        participate = Participate.objects.get(id=id)
+        serializer = UpdateParticipateSreilalizer(participate,data=request.data)
+
+        if serializer.is_valid():
+            participate.finaldate_participate=timezone.now()
+            participate.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
       
              
 

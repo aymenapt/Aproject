@@ -40,7 +40,18 @@ class ParticipateListSerializer(serializers.ModelSerializer):
      user_detail=UserSerializer(read_only=True,source='participate_by')
      class Meta :
           model=Participate
-          fields=['id','user_detail','participate_result','answers']
+          fields=['id','user_detail','participate_result','finaldate_participate','answers']
+
+class UpdateParticipateSreilalizer(serializers.ModelSerializer):
+    class Meta :
+         model=Participate
+         fields= "__all__"
+         extra_kwargs = {
+            'challenge': {'required': False},
+            'participate_by': {'required': False},
+            'participate_result': {'required': False},
+            'finaldate_participate': {'required': False},
+        }              
 
 class AdsSreilalizer(serializers.ModelSerializer):
     class Meta :

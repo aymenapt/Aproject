@@ -27,6 +27,10 @@ urlpatterns = [
     path('answer/', MyAnswer.as_view()),
 
 
+
+    path('filalparticipate/<int:id>/', FinalParticipate.as_view()),
+
+
     
     
     

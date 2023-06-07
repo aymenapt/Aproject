@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny
 from.models import NewUser
 from rest_framework import status
 from rest_framework.response import Response
-from.email import send_otp_via_email ,sendinterview
+from.email import send_otp_via_email ,sendinterview,restpassword
 from django.utils import timezone
 from datetime import timedelta
 
@@ -155,7 +155,18 @@ class SendInterview(APIView):
         sendinterview(request.data['email'],request.data['interviewlink'])
         return Response({'message': 'Interview was sent'}, status=status.HTTP_200_OK)
      
+
+class RestPassword(APIView):
+    def post(self, request, format='json'):
+        try:
+            user = NewUser.objects.get(email=request.data['email'])
+        except NewUser.DoesNotExist:
+            return Response({'message': 'User does not exist.'}, status=status.HTTP_404_NOT_FOUND)
         
+        # Implement your password recovery logic here
+        # For example, you can generate a password reset token and send it to the user's email
+        restpassword(request.data['email'],user.password)
+        return Response({'message': 'Password recovery initiated.'}, status=status.HTTP_200_OK)        
 
 
 

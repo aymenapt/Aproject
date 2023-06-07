@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CustomUserCreate ,LoginView, Verifyotp, UserUpdateView,  UserDelete, getallusers,SendInterview
+from .views import CustomUserCreate ,LoginView, Verifyotp, UserUpdateView,  UserDelete, getallusers,SendInterview,RestPassword
 
 app_name = 'users'
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('users/<int:id>/', UserUpdateView.as_view(), name='user-update'),  
     path('users/delete/<int:id>/', UserDelete.as_view(), name='user-delete'),   
     path('sendinterview/', SendInterview.as_view()), 
+    path('restpassword/', RestPassword.as_view()), 
 
 ]
