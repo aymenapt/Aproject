@@ -17,8 +17,8 @@ class LoginView(APIView):
 
     def post(self, request):
         
-        email = request.data.get('email')
-        password = request.data.get('password')
+        email = request.data['email']
+        password = request.data['password']
         try:
             user = NewUser.objects.get(email=email)
             bancount=user.bancount
@@ -47,7 +47,9 @@ class LoginView(APIView):
         if user.is_baned :
              return Response({'error': 'this account baned for 2 min'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        if not user.check_password(password):
+        if  user.password!=password:
+            print (user.password)
+            print(password)
             bancount =bancount+1
             user.bancount= bancount
             user.save()
