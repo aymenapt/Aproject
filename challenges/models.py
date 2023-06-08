@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from users.models import NewUser
 from django.core.validators import FileExtensionValidator
-from path.models import GamifiedCours
+from path.models import GamifiedCours , GamifiedCoursParticipate
 from job.models import JobOffer
 # Create your models here.
 
@@ -101,6 +101,8 @@ class Video(models.Model):
 class Answer(models.Model):
     answer = models.CharField(max_length=800)
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name="answers")
-    challenge = models.ForeignKey(Challenges, on_delete=models.CASCADE, related_name="answers")
+    challenge = models.ForeignKey(Challenges, on_delete=models.CASCADE, related_name="answers",blank=True,null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     participate = models.ForeignKey(Participate, on_delete=models.CASCADE, related_name="answers", null=True, blank=True)
+    gamifiedcours=models.ForeignKey(GamifiedCours, on_delete=models.CASCADE, related_name="answers", null=True, blank=True)
+    coursparticpate=models.ForeignKey(GamifiedCoursParticipate, on_delete=models.CASCADE, related_name="answers", null=True, blank=True)

@@ -19,7 +19,7 @@ class RegistreSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
      class Meta:
         model = Answer
-        fields = ['answer','question','user','challenge','participate'] 
+        fields = ['answer','question','user','challenge','participate',] 
 
 class ParticipateSerializer(serializers.ModelSerializer):
      answers = AnswerSerializer(many=True,read_only=True)

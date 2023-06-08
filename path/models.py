@@ -20,3 +20,15 @@ class GamifiedCours(models.Model):
     learningpath=models.ForeignKey(LearningPath,on_delete=models.CASCADE,related_name="gamifiedcours")
     def __str__(self) -> str:
         return self.name
+
+class GamifiedCoursParticipate(models.Model):
+    gamifiedcours=models.ForeignKey(GamifiedCours,on_delete=models.CASCADE,related_name="coursparticipate",null=True,blank=True)
+    participate_by=models.ForeignKey(NewUser,on_delete=models.CASCADE,related_name="coursparticipate")
+    participate_result=models.IntegerField(default=0)
+    finaldate_participate=models.DateTimeField(null=True,blank=True)
+    class Meta:
+        ordering = ('-participate_result','finaldate_participate')
+
+
+
+

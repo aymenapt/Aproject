@@ -154,7 +154,7 @@ class getallusers(generics.ListCreateAPIView):
 
 class SendInterview(APIView):
     def post(self, request, format='json'):
-        sendinterview(request.data['email'],request.data['interviewlink'])
+        sendinterview(request.data['email'],request.data['interviewlink'],request.data['interviewdate'])
         return Response({'message': 'Interview was sent'}, status=status.HTTP_200_OK)
      
 
