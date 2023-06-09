@@ -52,7 +52,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
           return None
     class Meta :
         model=NewUser
-        fields=('id','email','username','skills', 'image','image_url')
+        fields=('id','first_name','skills', 'image','image_url')
         extra_kwargs = {
             'email': {'required': False},
             'username': {'required': False},
